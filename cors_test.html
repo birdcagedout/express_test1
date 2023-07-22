@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>CORS 막힘 확인</title>
+</head>
+<body>
+	***주의*** <br>
+	CORS 막힘 확인 시, 서버(index.js)측 app.use(cors()); 부분 주석처리 + 서버 재시동 해야하고,<br>
+	본 html페이지를 개발자 모드에서 연 후 "캐시 비우기 및 강력 새로고침"으로 리로드 해주어야 한다.<br>
+	(그렇지 않으면 CORS 설정에 따른 효과를 볼 수 없다.)<br><br>
+	<input id="name" type="text">
+	<button onclick="getSound();">API 요청 (왼쪽에 dog, cat, pig 입력)</button>
+	<div><h1 id="result"></h1></div>
+	<script>
+		async function getSound() {
+			const name = document.getElementById('name').value;
+			const res = await fetch(`http://localhost:3000/sound/${name}`);
+			const jsonData = await res.json();
+			console.log(jsonData);
+			document.getElementById('result').innerHTML = `sound: ${jsonData.sound}`;
+		}
+
+		// function getSound() {
+		// 	const name = document.getElementById('name').value;
+		// 	fetch(`http://localhost:3000/sound/${name}`)
+		// 	.then((response) => response.json())
+		// 	.then((data) => {
+		// 		console.log(data);
+		// 		document.getElementById('result').innerHTML = data;
+		// 	});
+		// }
+	</script>
+	
+</body>
+</html>
